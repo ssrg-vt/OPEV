@@ -1,44 +1,9 @@
 ;;****
-;; Xiaoxin An (*1), Amer Tahat (*2), N Shankar(*3) and Binoy Ravindran (*4)
-;; This software is being developed in collaboration between Virgina Tech (*1, *2, *4) and Stanford Research International (SRI - *3).
+;; Xiaoxin An (*1), Amer Tahat (*2), and Binoy Ravindran (*3)
+;; This software is being developed by Virgina Tech (*1, *2, *3).
 ;; This software is supported by Office of Naval Research (ONR).
 
 ;; December 2017
-
-;; ---------------------
-;; Strategies for Renee basic library from SAIL to PVS.
-;;****
-
-
-
-(defstep case-step (lhs rhs)
-	(let ((case-eq (list 'case (format nil "(~a) = (~a)" lhs rhs))))
-	  (then case-eq (grind))) "" "" )
-
-(defstep iter-strat (iter i length)
-  (let ((casestr (format nil "(~a)=(~a)" iter i)))
-    (spread (case casestr)
-            ((grind)
-             (let ((ni (+ i 1)))
-               (if (< ni length)
-                   (iter_strat iter ni length)
-                 (grind))))))
-  "Enumerating different cases"
-  "Iterate i from 0 to length")
-
-(defstep bitwise-basic-strat ()
-  (branch (decompose-equality)
-          ((grind)
-           (grind)))
-  "" "")
-
-(defstep bvec-strat ()
-  (then (grind)
-        (branch (decompose-equality)
-                ((grind)
-                 (grind))))
-  "" "")
-
 
 ;; Get formula from current goal (unnegated if antecedent formula)
 (defun get-fnum (fnum)
@@ -82,7 +47,8 @@
 
 (defstep insert-neq-form (&optional (fnum -1))
   (let ((formula1 (get-fnum fnum)))
-    (let ((casestr (format nil "~a /= ~a" (args1 formula1) (args2 formula1))))
+    (let ((casestr (format nil "~a /= ~a"
+                           (args1 formula1) (args2 formula1))))
       (apply (case casestr))))
   "" "")
 

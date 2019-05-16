@@ -1,14 +1,9 @@
 ;;****
 ;; Xiaoxin An (*1), Amer Tahat (*2), and Binoy Ravindran (*3)
-;; This software is being developed in collaboration between Virgina Tech (*1, *3) and Stanford Research International (SRI - *2).
+;; This software is being developed by Virgina Tech (*1, *2, *3).
 ;; This software is supported by Office of Naval Research (ONR).
 
 ;; December 2017
-
-;; ---------------------
-;; Strategies for Renee basic library from SAIL to PVS.
-;;****
-
 
 ;; Get formula from current goal (unnegated if antecedent formula)
 (defun get-fnum (fnum)
